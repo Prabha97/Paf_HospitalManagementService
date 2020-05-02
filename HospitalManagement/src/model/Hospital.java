@@ -76,15 +76,10 @@ public class Hospital {
 				  
 				  
 
-				// buttons    
-				  output += "<td><input name=\"btnUpdate\"         "
-				  		+ "type=\"button\" value=\"Update\"        "
-				  		+ "class=\" btnUpdate btn btn-secondary\"></td>      "
-				  		+ "<td><form method=\"post\" action=\"Hospital.jsp\">      "
-				  		+ "<input name=\"btnRemove\" type=\"submit\"       "
-				  		+ "value=\"Remove\" class=\"btn btn-danger\">      "
-				  		+ "<input name=\"hidHospitalIDDelete\" type=\"hidden\"      "
-				  		+ "value=\"" + hosReadbean.getHospital_ID() + "\">" + "</form></td></tr>";  
+				// buttons     
+				  output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"       
+						  + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-hospitalid='"       
+						  + hosReadbean.getHospital_ID() + "'>" + "</td></tr>";  
 				} 
 			  
 			  con.close(); 

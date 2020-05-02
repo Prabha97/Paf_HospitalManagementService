@@ -103,11 +103,13 @@
  	</div>  
  	<div id="alertError" class="alert alert-danger"></div> 
 
- 	<br>  
+ 	<br> 
+ 	<div id="divHospitalsGrid">
  			<%    
 					Hospital hospObj = new Hospital();    
  				    out.print(hospObj.readHospitals());   
- 			%>  
+ 			%> 
+ 	</div>
  </div>   
  </div>  
  </div>   
