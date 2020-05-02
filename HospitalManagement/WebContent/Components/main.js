@@ -81,7 +81,48 @@ $(document).on("click", ".btnUpdate", function(event)
 	$("#openHours").val($(this).closest("tr").find('td:eq(6)').text());
 });
 
-//CLIENTMODEL========================================================================= 
+//Remove Operation
+$(document).on("click", ".btnRemove", function(event){
+	$.ajax(
+	{
+		url : "",
+		type : "DELETE",
+		data : "hID" + $(this).data("hID"),
+		dataType : "text",
+		complete : function(response, status)
+		{
+			onHospitalDeletedComplete(response, responseText, status);
+		}
+	});
+});
+
+function onHospitalDeletedComplete(responce, status)
+{
+	if(status == "success")
+	{
+		var resultSet = JSON.parse(response);
+			
+		if(resultSet.status.trim() == "success")
+		{
+			$("#alertSuccess").text("Successfully Deleted.");
+			$("#alertSuccess").show();
+					
+			$("#divHospitalsGrid").html(resultSet.data);
+	
+		}else if(resultSet.status.trim() == "error"){
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+	}else if(status == "error"){
+		$("#alertError").text("Error While deleting.");
+		$("#slertError").show();
+	}else{
+		$("#alertError").text("Unknown Error while deleting.");
+		$("#alertError").show();
+	}
+}
+
+//CLIENTMODEL
 function validateHospitalForm() {  
 	// Name  
 	if ($("#hospitalName").val().trim() == "")  

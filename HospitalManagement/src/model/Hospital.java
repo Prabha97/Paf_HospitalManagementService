@@ -107,28 +107,31 @@ public class Hospital {
 			}
 
 			// create a prepared statement   
-			String query = " insert into hospitals (`Hospital_Name`,`Hospital_Address`,`Hospital_City`,`Hospital_Phone`,`Hospital_Email`,`Hospital_Description`,`Open_Hours`)"+" values (?, ?, ?, ?, ?, ?, ?)";
+			String query = " insert into hospitals (`Hospital_ID`,`Hospital_Name`,`Hospital_Address`,`Hospital_City`,`Hospital_Phone`,`Hospital_Email`,`Hospital_Description`,`Open_Hours`)"+" values (?, ?, ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
 			// binding values 
-			//preparedStmt.setInt(1, 0);
-			preparedStmt.setString(1, hosName);
-			preparedStmt.setString(2, hosAddress);
-			preparedStmt.setString(3, hosCity);
-			preparedStmt.setString(4, phone);
-			preparedStmt.setString(5, email);
-			preparedStmt.setString(6, desc);
-			preparedStmt.setString(7, openhour);
+			preparedStmt.setInt(1, 0);
+			preparedStmt.setString(2, hosName);
+			preparedStmt.setString(3, hosAddress);
+			preparedStmt.setString(4, hosCity);
+			preparedStmt.setString(5, phone);
+			preparedStmt.setString(6, email);
+			preparedStmt.setString(7, desc);
+			preparedStmt.setInt(8, Integer.parseInt(openhour));
 
 			//execute the statement   
 			preparedStmt.execute();   
 			con.close(); 
 
-			output = "Inserted successfully";
+			//Create JSON Object to show successful msg.
+			String newHospital = readHospitals();
+			output = "{\"status\":\"success\", \"data\": \"" + newHospital + "\"}";
 		}
-		catch (Exception e) {   
-			output = "Error while inserting the Hospitals.";   
+		catch (Exception e) {  
+			//Create JSON Object to show Error msg.
+			output = "{\"status\":\"error\", \"data\": \"Error while Inserting new Hospital.\"}";   
 			System.err.println(e.getMessage());  
 		} 
 
@@ -159,7 +162,7 @@ public class Hospital {
 	   preparedStmt.setString(4, phone);
 	   preparedStmt.setString(5, email);
 	   preparedStmt.setString(6, desc);
-	   preparedStmt.setString(7, hours);
+	   preparedStmt.setInt(7, Integer.parseInt(hours));
 	   preparedStmt.setInt(8, Integer.parseInt(hosid));
 	   
 	 
@@ -167,9 +170,11 @@ public class Hospital {
 	   preparedStmt.execute();    
 	   con.close(); 
 	 
-	   output = "Updated successfully "+name+" Details";   
+	   //create JSON object to show successful msg
+	   String UpdatedHospital = readHospitals();
+	   output = "{\"status\":\"success\", \"data\": \"" + UpdatedHospital + "\"}";
 	   }   catch (Exception e)   {    
-		   output = "Error while updating the Hospital.";    
+		   output = "{\"status\":\"error\", \"data\": \"Error while Updating Hospital's Details.\"}";      
 		   System.err.println(e.getMessage());   
 	   } 
 	 
@@ -197,9 +202,12 @@ public class Hospital {
 	  preparedStmt.execute();   
 	  con.close(); 
 	 
-	  output = "Deleted successfully";  
-	  }  catch (Exception e)  {   
-		  output = "Error while deleting the hospital.";   
+	  //create JSON Object
+	  String delHospital = readHospitals();
+	  output = "{\"status\":\"success\", \"data\": \"" + delHospital + "\"}";
+	  }  catch (Exception e)  {  
+		  //Create JSON object 
+		  output = "{\"status\":\"error\", \"data\": \"Error while Deleting Hospital.\"}";
 		  System.err.println(e.getMessage());  
 		  
 	 } 
