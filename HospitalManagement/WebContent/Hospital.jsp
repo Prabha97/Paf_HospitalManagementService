@@ -2,49 +2,7 @@
 <%@page import="bean.HospitalBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-<%
-	//Initialize
-	session.setAttribute("statusMsg", "");
-	System.out.println("Trying to process...");
-	//Save
-	if(request.getParameter("hospitalName") != null)
-	{
-		Hospital hospObj = new Hospital();
-		String stsMsg = "";
-	
-		//Insert
-		if(request.getParameter("hospitalName") != null){
-			//Hospital hospObj = new Hospital();
-			 stsMsg = hospObj.insertHospitals(request.getParameter("hospitalName"),
-				request.getParameter("hospitalAddress"),
-				request.getParameter("hospitalCity"),
-				request.getParameter("phoneNum"),
-				request.getParameter("hospitalEmail"),
-				request.getParameter("hospitalDesc"),
-				request.getParameter("openHours"));
-		}else{
-			//Update
-			stsMsg = hospObj.updateHospitals(request.getParameter("hidHospitalIDSave"),request.getParameter("hospitalName"),
-					request.getParameter("hospitalAddress"),
-					request.getParameter("hospitalCity"),
-					request.getParameter("phoneNum"),
-					request.getParameter("hospitalEmail"),
-					request.getParameter("hospitalDesc"),
-					request.getParameter("openHours"));
-		}
-			session.setAttribute("statusMsg", stsMsg);
-		}
-			
-			//Delete
-			if(request.getParameter("hidHospitalIDDelete") !=  null)
-			{
-				Hospital hospObj = new Hospital();
-				String stsMsg = hospObj.deleteHospitals(request.getParameter("hidHospitalIDDelete"));
-				session.setAttribute("statusMsg", stsMsg);
-			}
-%>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
