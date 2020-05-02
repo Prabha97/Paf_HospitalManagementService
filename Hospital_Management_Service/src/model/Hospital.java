@@ -40,7 +40,7 @@ public class Hospital {
 			} 
 
 			// Prepare the html table to be displayed   
-			output = "<table border=\"1\"><tr><th>Hospital ID</th>"    +""
+			output += "<table border=\"1\"><tr><th>Hospital ID</th>"    +""
 					+ "<th>Hospital Name</th>"    + ""
 					+ "<th>Hospital Address</th><th>Hospital City</th>"    + ""
 					+ "<th>Hospital Phone</th><th>Hospital Email</th>"    + ""
@@ -63,14 +63,26 @@ public class Hospital {
 				  hosReadbean.setOpen_Hours(rs.getInt("Open_Hours"));
 
 			   // Add into the html table    
-			  output += "<tr><td>" + hosReadbean.getHospital_ID() + "</td>";    
-			  output += "<td>" + hosReadbean.getHospital_Name() + "</td>";
+			  output += "<tr><td>><input id='hidHospitalIDUpdate'       "
+			  		+ "name='hidHospitalIDUpdate' type='hidden'        "
+			  		+ "value='\" + hosReadbean.getHospital_ID() + \"'>" + hosReadbean.getHospital_Name() + "</td>";    
+			  //output += "<td>" + hosReadbean.getHospital_Name() + "</td>";
 			  output += "<td>" + hosReadbean.getHospital_Address() + "</td>";    
 			  output += "<td>" + hosReadbean.getHospital_City() + "</td>"; 
 			  output += "<td>" + hosReadbean.getHospital_Phone() + "</td>";    
 			  output += "<td>" + hosReadbean.getHospital_Email() + "</td>";
 			  output += "<td>" + hosReadbean.getHospital_Description() + "</td>";		  
-			  output += "<td>" + hosReadbean.getOpen_Hours() + "</td>"; 
+			  output += "<td>" + hosReadbean.getOpen_Hours() + "</td>";
+			  
+			  
+			// buttons    
+			  output += "<td><input name='btnUpdate' type='button'       "
+			  		+ "value='Update'           "
+			  		+ "class='btnUpdate btn btn-secondary'></td>      "
+			  		+ "<td><input name='btnRemove' type='button'       "
+			  		+ "value='Remove'           "
+			  		+ "class='btnRemove btn btn-danger' data-hospitalid='"      
+			  		+ hosReadbean.getHospital_ID() + "'>" + "</td></tr>"; 
 			  } 
 
 			  con.close(); 
