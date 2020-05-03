@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import bean.HospitalBean;
-
 public class Hospital {
 	//A common method to connect to the DB 
 	private Connection connect() {
@@ -31,7 +29,7 @@ public class Hospital {
 	public String readHospitals() {  
 		String output = "";  
 		
-		HospitalBean hosReadbean = new HospitalBean();
+		//HospitalBean hosReadbean = new HospitalBean();
 
 		try {  
 			Connection con = connect();  
@@ -40,10 +38,11 @@ public class Hospital {
 			} 
 
 			// Prepare the html table to be displayed   
-			output = "<table border='1'><tr><th>Hospital Name</th>"    + ""
-					+ "<th>Hospital Address</th><th>Hospital City</th>"    + ""
-					+ "<th>Hospital Phone</th><th>Hospital Email</th>"    + ""
-					+ "<th>Hospital Description</th><th>Open Hours</th>";
+			output = "<table border=\"1\"><tr><th>Hospital Name</th>"
+					+ "<th>Hospital Address</th><th>Hospital City</th>"
+					+ "<th>Hospital Phone</th><th>Hospital Email</th>"
+					+ "<th>Hospital Description</th><th>Open Hours</th>"
+					+ "<th>Update</th><th>Remove</th></tr>";
 
 
 			  String query = "select * from hospitals";   
@@ -52,34 +51,42 @@ public class Hospital {
 
 			  // iterate through the rows in the result set   
 			  while (rs.next())   {  
-				  hosReadbean.setHospital_ID(rs.getInt("Hospital_ID"));
-				  hosReadbean.setHospital_Name(rs.getString("Hospital_Name"));
-				  hosReadbean.setHospital_Address(rs.getString("Hospital_Address"));
-				  hosReadbean.setHospital_City(rs.getString("Hospital_City"));
-				  hosReadbean.setHospital_Phone(rs.getString("Hospital_Phone"));
-				  hosReadbean.setHospital_Email(rs.getString("Hospital_Email"));
-				  hosReadbean.setHospital_Description(rs.getString("Hospital_Description"));
-				  hosReadbean.setOpen_Hours(rs.getInt("Open_Hours"));
+//				  hosReadbean.setHospital_ID(rs.getInt("Hospital_ID"));
+//				  hosReadbean.setHospital_Name(rs.getString("Hospital_Name"));
+//				  hosReadbean.setHospital_Address(rs.getString("Hospital_Address"));
+//				  hosReadbean.setHospital_City(rs.getString("Hospital_City"));
+//				  hosReadbean.setHospital_Phone(rs.getString("Hospital_Phone"));
+//				  hosReadbean.setHospital_Email(rs.getString("Hospital_Email"));
+//				  hosReadbean.setHospital_Description(rs.getString("Hospital_Description"));
+//				  hosReadbean.setOpen_Hours(rs.getInt("Open_Hours"));
+				  String Hospital_ID = Integer.toString(rs.getInt("Hospital_ID"));
+				  String Hospital_Name = rs.getString("Hospital_Name");
+				  String Hospital_Address = rs.getString("Hospital_Address");
+				  String Hospital_City = rs.getString("Hospital_City");
+				  String Hospital_Phone = rs.getString("Hospital_Phone");
+				  String Hospital_Email = rs.getString("Hospital_Email");
+				  String Hospital_Description = rs.getString("Hospital_Description");
+				  String Open_Hours = Integer.toString(rs.getInt("Open_Hours"));
 
 				  // Add into the html table    
 				  //output += "<tr><td>" + hosReadbean.getHospital_ID() + "</td>";
 				  output += "<tr><td><input id=\"hidHospitalIDUpdate\" name=\"hidHospitalIDUpdate\"     "
-				  		+ "type=\"hidden\" value=\"" + hosReadbean.getHospital_ID() + "\">"     
-						  	+ hosReadbean.getHospital_Name() + "</td>"; 
+				  		+ "type=\"hidden\" value=\"" + Hospital_ID + "\">"     
+						  	+ Hospital_Name + "</td>"; 
 				  //output += "<td>" + hosReadbean.getHospital_Name() + "</td>";
-				  output += "<td>" + hosReadbean.getHospital_Address() + "</td>";    
-				  output += "<td>" + hosReadbean.getHospital_City() + "</td>"; 
-				  output += "<td>" + hosReadbean.getHospital_Phone() + "</td>";    
-				  output += "<td>" + hosReadbean.getHospital_Email() + "</td>";
-				  output += "<td>" + hosReadbean.getHospital_Description() + "</td>";		  
-				  output += "<td>" + hosReadbean.getOpen_Hours() + "</td>"; 
+				  output += "<td>" + Hospital_Address + "</td>";    
+				  output += "<td>" + Hospital_City + "</td>"; 
+				  output += "<td>" + Hospital_Phone + "</td>";    
+				  output += "<td>" + Hospital_Email + "</td>";
+				  output += "<td>" + Hospital_Description + "</td>";		  
+				  output += "<td>" + Open_Hours + "</td>"; 
 				  
 				  
 
 				// buttons     
 				  output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"       
-						  + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-hospitalid='"       
-						  + hosReadbean.getHospital_ID() + "'>" + "</td></tr>";  
+						  + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-hospitalid ='"       
+						  + Hospital_ID + "'>" + "</td></tr>";  
 				} 
 			  
 			  con.close(); 
@@ -126,8 +133,8 @@ public class Hospital {
 			con.close(); 
 
 			//Create JSON Object to show successful msg.
-			String newHospital = readHospitals();
-			output = "{\"status\":\"success\", \"data\": \"" + newHospital + "\"}";
+			String newHospitals = readHospitals();
+			output = "{\"status\":\"success\", \"data\": \"" + newHospitals + "\"}";
 		}
 		catch (Exception e) {  
 			//Create JSON Object to show Error msg.
@@ -171,8 +178,8 @@ public class Hospital {
 	   con.close(); 
 	 
 	   //create JSON object to show successful msg
-	   String UpdatedHospital = readHospitals();
-	   output = "{\"status\":\"success\", \"data\": \"" + UpdatedHospital + "\"}";
+	   String newHospitals = readHospitals();
+	   output = "{\"status\":\"success\", \"data\": \"" + newHospitals + "\"}";
 	   }   catch (Exception e)   {    
 		   output = "{\"status\":\"error\", \"data\": \"Error while Updating Hospital's Details.\"}";      
 		   System.err.println(e.getMessage());   
@@ -181,7 +188,7 @@ public class Hospital {
 	  return output;  
 	  }
 	
-	public String deleteHospitals(String HospitalID) {  
+	public String deleteHospitals(String Hospital_ID) {  
 		String output = ""; 
 	 
 	 try  {   
@@ -197,14 +204,14 @@ public class Hospital {
 	  PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	  // binding values   
-	  preparedStmt.setInt(1, Integer.parseInt(HospitalID));       
+	  preparedStmt.setInt(1, Integer.parseInt(Hospital_ID));       
 	  // execute the statement   
 	  preparedStmt.execute();   
 	  con.close(); 
 	 
 	  //create JSON Object
-	  String delHospital = readHospitals();
-	  output = "{\"status\":\"success\", \"data\": \"" + delHospital + "\"}";
+	  String newHospitals = readHospitals();
+	  output = "{\"status\":\"success\", \"data\": \"" + newHospitals + "\"}";
 	  }  catch (Exception e)  {  
 		  //Create JSON object 
 		  output = "{\"status\":\"error\", \"data\": \"Error while Deleting Hospital.\"}";

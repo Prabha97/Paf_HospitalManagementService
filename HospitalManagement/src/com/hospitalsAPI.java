@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.util.HashMap; 
 import java.util.Map; 
 import java.util.Scanner;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -105,9 +99,10 @@ public class hospitalsAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		Map<String, String> param = getParasMap(request);
 		
-		String result = hospObj.deleteHospitals(param.get("hidHospitalIDSave").toString());
+		String result = hospObj.deleteHospitals(param.get("Hospital_ID").toString());
 		
 		response.getWriter().write(result);
+
 	}
 
 }

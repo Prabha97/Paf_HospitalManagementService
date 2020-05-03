@@ -87,7 +87,7 @@ $(document).on("click", ".btnRemove", function(event){
 	{
 		url : "hospitalsAPI",
 		type : "DELETE",
-		data : "HospitalID" + $(this).data("Hospital_ID"),
+		data : "Hospital_ID=" + $(this).data("hospitalid"),
 		dataType : "text",
 		complete : function(response, status)
 		{
@@ -96,7 +96,7 @@ $(document).on("click", ".btnRemove", function(event){
 	});
 });
 
-function onHospitalDeletedComplete(responce, status)
+function onHospitalDeletedComplete(response, status)
 {
 	if(status == "success")
 	{
@@ -115,7 +115,7 @@ function onHospitalDeletedComplete(responce, status)
 		}
 	}else if(status == "error"){
 		$("#alertError").text("Error While deleting.");
-		$("#slertError").show();
+		$("#alertError").show();
 	}else{
 		$("#alertError").text("Unknown Error while deleting.");
 		$("#alertError").show();
@@ -142,10 +142,12 @@ function validateHospitalForm() {
 		return "Insert City Where Hospital is located.";  
 	} 
 
-	// Phone  
+	// Phone
+	
 	if ($("#phoneNum").val().trim() == "")  
 	{  
-		return "Insert Phone number of the Hospital.";  
+		return "Insert Phone number of the Hospital.";
+		
 	}
 	
 	// Email  
@@ -153,7 +155,7 @@ function validateHospitalForm() {
 	{   
 		return "Insert Email Address of the Hospital.";  
 	} 
-
+	
 	// Description  
 	if ($("#hospitalDesc").val().trim() == "")  
 	{  

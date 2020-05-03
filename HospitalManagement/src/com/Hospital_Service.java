@@ -100,7 +100,7 @@ public class Hospital_Service {
 		//Read the value from the element <Hospital_ID>  
 		//hosDel_bean.setHospital_ID(doc.get("Hospital_ID").getAsInt());
 		
-		String hID = doc.select("hID").text();
+		String hID = doc.select("Hospital_ID").text();
 		 String output = hospitalObj.deleteHospitals(hID); 
 		 
 		 return output; 
