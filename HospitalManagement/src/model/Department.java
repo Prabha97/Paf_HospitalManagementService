@@ -46,11 +46,11 @@ public class Department {
 			} 
 
 			// Prepare the html table to be displayed   
-			output = "<table border='1'><tr><th>Department Name</th><th>Hospital Name</th>"
+			output = "<table border='1'><tr><th>Hospital ID</th><th>Department Name</th>"
 								+ "<th>Head of Department</th><th>Number of Staff Vaconcies</th>"
 								+ "<th>Update</th><th>Remove</th></tr>";
 
-		String query1 = "select d.Department_ID,d.Department_Name,h.Hospital_Name,s.DoctorName,d.Staff_Vacancies FROM departments d, doctors s,hospitals h WHERE d.Hospital_ID = h.Hospital_ID AND d.Head = s.DoctorID AND s.Status = 'Accepted'";
+		String query1 = "select d.Department_ID,d.Department_Name,h.Hospital_ID,s.DoctorID,d.Staff_Vacancies FROM departments d, doctors s,hospitals h WHERE d.Hospital_ID = h.Hospital_ID AND d.Head = s.DoctorID AND s.Status = 'Accepted'";
 		Statement stmt = con.createStatement();   
 		ResultSet rs1 = stmt.executeQuery(query1); 
 		  
@@ -58,16 +58,16 @@ public class Department {
 		  while (rs1.next())   {
 
 			  String Department_ID = Integer.toString(rs1.getInt("Department_ID"));
+			  String Hospital_ID = rs1.getString("Hospital_ID");
 			  String Department_Name = rs1.getString("Department_Name");
-			  String Hospital_Name = rs1.getString("Hospital_Name");
-			  String HeadName = rs1.getString("DoctorName");
+			  String DoctorID = rs1.getString("DoctorID");
 			  String Staff_Vacancies = rs1.getString("Staff_Vacancies");
 
 		   // Add into the html table    
 
-		  output += "<tr><td><input id='hidDepartmentIDUpdate' name='hidDepartmentIDUpdate' type='hidden' value='" + Department_ID + "'>" + Department_Name + "</td>";
-		  output += "<td>" + Hospital_Name + "</td>";    
-		  output += "<td>" + HeadName + "</td>"; 
+		  output += "<tr><td><input id='hidDepartmentIDUpdate' name='hidDepartmentIDUpdate' type='hidden' value='" + Department_ID + "'>" + Hospital_ID + "</td>";
+		  output += "<td>" + Department_Name + "</td>";    
+		  output += "<td>" + DoctorID + "</td>"; 
 		  output += "<td>" + Staff_Vacancies + "</td>"; 
 		  
 		  // buttons     
@@ -91,7 +91,7 @@ public class Department {
 	}
 	
 	//Insert departments
-	public String insertDepartments(String depName, String hospId, String depHead, String staffVacan) {
+	public String insertDepartments(String hospId, String depName, String depHead, String staffVacan) {
 		String output = "";
 
 		try {
@@ -102,7 +102,7 @@ public class Department {
 			}
 
 			// create a prepared statement   
-			String query = " insert into departments (`Hospital_ID`,`Department_Name`,`Head`,`Staff_Vacancies`)"+" values (?, ?, ?, ?)";
+			String query = " insert into departments (`Department_ID`,`Hospital_ID`,`Department_Name`,`Head`,`Staff_Vacancies`)"+" values (?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
@@ -189,7 +189,6 @@ public class Department {
 	  } 
 	 
 	  // create a prepared statement   
-	  //String query = "DELETE FROM departments WHERE Department_ID=? && Hospital_ID=?"; 
 	  String query = "DELETE FROM departments WHERE Department_ID=?";
 	  
 	  PreparedStatement preparedStmt = con.prepareStatement(query); 

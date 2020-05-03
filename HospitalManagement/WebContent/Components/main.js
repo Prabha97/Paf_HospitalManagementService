@@ -143,12 +143,16 @@ function validateHospitalForm() {
 	} 
 
 	// Phone
-	
 	if ($("#phoneNum").val().trim() == "")  
 	{  
 		return "Insert Phone number of the Hospital.";
-		
 	}
+	
+	//is Numerical value
+	var phoneNum = $("#phoneNum").val().trim();  
+	if (!$.isNumeric(phoneNum))  {   
+		return "Insert valied phone number.";  
+	} 
 	
 	// Email  
 	if ($("#hospitalEmail").val().trim() == "")  
@@ -173,5 +177,6 @@ function validateHospitalForm() {
 	if (!$.isNumeric(openHour))  {   
 		return "Insert a numerical value for Hours.";  
 	} 
+	
 	return true;
 }

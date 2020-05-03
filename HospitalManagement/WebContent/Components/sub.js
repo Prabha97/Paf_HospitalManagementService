@@ -120,7 +120,7 @@ function onDepartmentDeletedComplete(response, status)
 }
 
 //CLIENTMODEL
-function validateHospitalForm() {  
+function validateDepartmentAddingForm() {  
 	// HospitalID  
 	var hosid = $("#hospitalId").val().trim();  
 	if (!$.isNumeric(hosid))  {   
@@ -130,7 +130,7 @@ function validateHospitalForm() {
 	// Dep name  
 	if ($("#departmentName").val().trim() == "")  
 	{  
-		return "Insert Hospital Address.";  
+		return "Insert the Name of the Department.";  
 	}
 	
 	//Dep Head ID is Numerical value
