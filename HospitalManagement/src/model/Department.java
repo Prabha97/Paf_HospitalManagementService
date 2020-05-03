@@ -36,8 +36,8 @@ public class Department {
 	public String readDepartments() {  
 		String output = "";  
 
-		DepartmentBean depReadbean = new DepartmentBean();
-		HospitalBean hospReadbean = new HospitalBean();
+//		DepartmentBean depReadbean = new DepartmentBean();
+//		HospitalBean hospReadbean = new HospitalBean();
 		
 		try {  
 			Connection con = connect();
@@ -45,11 +45,10 @@ public class Department {
 				return "Error while connecting to the database for reading.";  
 			} 
 
-		// Prepare the html table to be displayed   
-		output = "<table border=\"1\"><tr><th>Department ID</th>"    +""
-				+ "<th>Department Name</th><th>Hospital Name</th>"    + ""
-				+ "<th>Head of Department</th>"    + ""
-				+ "<th>Number of Staff Vaconcies</th>";
+			// Prepare the html table to be displayed   
+						output = "<table border='1'><tr><th>Department Name</th><th>Hospital Name</th>"
+								+ "<th>Head of Department</th><th>Number of Staff Vaconcies</th>"
+								+ "<th>Update</th><th>Remove</th></tr>";
 
 		String query1 = "select d.Department_ID,d.Department_Name,h.Hospital_Name,s.DoctorName,d.Staff_Vacancies FROM departments d, doctors s,hospitals h WHERE d.Hospital_ID = h.Hospital_ID AND d.Head = s.DoctorID AND s.Status = 'Accepted'";
 		Statement stmt = con.createStatement();   
@@ -57,19 +56,33 @@ public class Department {
 		  
 		  // iterate through the rows in the result set  
 		  while (rs1.next())   {
-			  depReadbean.setDepartment_ID(rs1.getInt("Department_ID"));
-			  depReadbean.setDepartment_Name(rs1.getString("Department_Name"));
-			  hospReadbean.setHospital_Name(rs1.getString("Hospital_Name"));
-			  String DoctorName = rs1.getString("DoctorName");
-			  depReadbean.setStaff_Vacancies(rs1.getInt("Staff_Vacancies"));
-			  
+//			  depReadbean.setDepartment_ID(rs1.getInt("Department_ID"));
+//			  depReadbean.setDepartment_Name(rs1.getString("Department_Name"));
+//			  hospReadbean.setHospital_Name(rs1.getString("Hospital_Name"));
+//			  String DoctorName = rs1.getString("DoctorName");
+//			  depReadbean.setStaff_Vacancies(rs1.getInt("Staff_Vacancies"));
+			  String Department_ID = Integer.toString(rs1.getInt("Department_ID"));
+			  String Department_Name = rs1.getString("Department_Name");
+			  String Hospital_Name = rs1.getString("Hospital_Name");
+			  String HeadName = rs1.getString("DoctorName");
+			  String Staff_Vacancies = rs1.getString("Staff_Vacancies");
 
 		   // Add into the html table    
-		  output += "<tr><td>" + depReadbean.getDepartment_ID() + "</td>"; 
-		  output += "<td>" + depReadbean.getDepartment_Name() + "</td>";
-		  output += "<td>" + hospReadbean.getHospital_Name() + "</td>";
-		  output += "<td>" + DoctorName + "</td>";
-		  output += "<td>" + depReadbean.getStaff_Vacancies() + "</td>";
+		  //output += "<tr><td>" + depReadbean.getDepartment_ID() + "</td>"; 
+		  output += "<tr><td><input id='hidDepartmentIDUpdate' name='hidDepartmentIDUpdate' type='hidden' value='" + Department_ID + "'>" + Department_Name + "</td>";
+//		  output += "<td>" + depReadbean.getDepartment_Name() + "</td>";
+//		  output += "<td>" + hospReadbean.getHospital_Name() + "</td>";
+//		  output += "<td>" + DoctorName + "</td>";
+//		  output += "<td>" + depReadbean.getStaff_Vacancies() + "</td>";
+		  output += "<td>" + Hospital_Name + "</td>";    
+		  output += "<td>" + HeadName + "</td>"; 
+		  output += "<td>" + Staff_Vacancies + "</td>"; 
+		  
+		  // buttons     
+		  output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+		  		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-departmentid='"+ Department_ID +"'>"+"</td></tr>";
+
+		
 		  } 
 
 		  con.close(); 
@@ -86,7 +99,7 @@ public class Department {
 	}
 	
 	//Insert departments
-	public String insertDepartments(DepartmentBean depBean) {
+	public String insertDepartments(String depName, String hospId, String depHead, String staffVacan) {
 		String output = "";
 
 		try {
@@ -102,26 +115,34 @@ public class Department {
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
 			// binding values 
-			preparedStmt.setInt(1, depBean.getHospital_ID());
-			preparedStmt.setString(2, depBean.getDepartment_Name());    
-			preparedStmt.setInt(3, depBean.getHead());
-			preparedStmt.setInt(4, depBean.getStaff_Vacancies());  
+//			preparedStmt.setInt(1, depBean.getHospital_ID());
+//			preparedStmt.setString(2, depBean.getDepartment_Name());    
+//			preparedStmt.setInt(3, depBean.getHead());
+//			preparedStmt.setInt(4, depBean.getStaff_Vacancies());
+			preparedStmt.setInt(1, 0);
+			preparedStmt.setInt(2, Integer.parseInt(hospId));
+			preparedStmt.setString(3, depName);
+			preparedStmt.setInt(4, Integer.parseInt(depHead));
+			preparedStmt.setInt(5, Integer.parseInt(staffVacan));
 
 			//execute the statement   
 			preparedStmt.execute();   
 			con.close(); 
 
-			output = "Inserted successfully";
+			//Create JSON Object to show successful msg.
+			String newDepartments = readDepartments();
+			output = "{\"status\":\"success\", \"data\": \"" + newDepartments + "\"}";
 		}
 		catch (Exception e) {   
-			output = "Error while inserting Departments to the hospitals.";   
+			//Create JSON Object to show Error msg.
+			output = "{\"status\":\"error\", \"data\": \"Error while Inserting new Department to the Hospital.\"}";  
 			System.err.println(e.getMessage());  
 		} 
 
 		 return output; 
 	}
 
-	public String updateDepartments(DepartmentBean depUpdateBean)  {   
+	public String updateDepartments(String depid, String hospid, String depname, String head, String vacancies)  {   
 		String output = ""; 
 	 
 	  try   {   
@@ -138,26 +159,34 @@ public class Department {
 	   PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	   // binding values    
-	   preparedStmt.setInt(1, depUpdateBean.getHospital_ID());
-	   preparedStmt.setString(2, depUpdateBean.getDepartment_Name());    
-	   preparedStmt.setInt(3, depUpdateBean.getHead());
-	   preparedStmt.setInt(4, depUpdateBean.getStaff_Vacancies());
-	   preparedStmt.setInt(5, depUpdateBean.getDepartment_ID());
+//	   preparedStmt.setInt(1, depUpdateBean.getHospital_ID());
+//	   preparedStmt.setString(2, depUpdateBean.getDepartment_Name());    
+//	   preparedStmt.setInt(3, depUpdateBean.getHead());
+//	   preparedStmt.setInt(4, depUpdateBean.getStaff_Vacancies());
+//	   preparedStmt.setInt(5, depUpdateBean.getDepartment_ID());
+	   preparedStmt.setInt(1, Integer.parseInt(hospid));    
+	   preparedStmt.setString(2, depname);    
+	   preparedStmt.setInt(3, Integer.parseInt(head));
+	   preparedStmt.setInt(4, Integer.parseInt(vacancies));
+	   preparedStmt.setInt(5, Integer.parseInt(depid));
 	 
 	   // execute the statement    
 	   preparedStmt.execute();    
 	   con.close(); 
 	 
-	   output = "Updated successfully";   
+	 //create JSON object to show successful msg
+	   String newDepartments = readDepartments();
+	   output = "{\"status\":\"success\", \"data\": \"" + newDepartments + "\"}";
+	   
 	   }   catch (Exception e)   {    
-		   output = "Error while updating the Departments Details.";    
+		   output = "{\"status\":\"error\", \"data\": \"Error while Updating Department Details.\"}";    
 		   System.err.println(e.getMessage());   
 	   } 
 	 
 	  return output;  
 	  }
 	
-	public String deleteDepartments(DepartmentBean depDeleteBean) {  
+	public String deleteDepartments(String Department_ID) {  
 		String output = ""; 
 	 
 	 try  {   
@@ -168,21 +197,27 @@ public class Department {
 	  } 
 	 
 	  // create a prepared statement   
-	  String query = "DELETE FROM departments WHERE Department_ID=? && Hospital_ID=?"; 
-	 
+	  //String query = "DELETE FROM departments WHERE Department_ID=? && Hospital_ID=?"; 
+	  String query = "DELETE FROM departments WHERE Department_ID=?";
+	  
 	  PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	  // binding values   
-	  preparedStmt.setInt(1, depDeleteBean.getDepartment_ID());
-	  preparedStmt.setInt(2, depDeleteBean.getHospital_ID());
-	  
+//	  preparedStmt.setInt(1, depDeleteBean.getDepartment_ID());
+//	  preparedStmt.setInt(2, depDeleteBean.getHospital_ID());
+//	  preparedStmt.setInt(1, Integer.parseInt(Hospital_ID));
+	  preparedStmt.setInt(1, Integer.parseInt(Department_ID));
 	  // execute the statement   
 	  preparedStmt.execute();   
 	  con.close(); 
 	 
-	  output = "Deleted successfully";  
+	//create JSON Object
+	  String newDepartments = readDepartments();
+	  output = "{\"status\":\"success\", \"data\": \"" + newDepartments + "\"}";
+	  
 	  }  catch (Exception e)  {   
-		  output = "Error while deleting the departments.";   
+		//Create JSON object 
+		  output = "{\"status\":\"error\", \"data\": \"Error while Deleting Department from the Hospital.\"}";
 		  System.err.println(e.getMessage());  
 		  
 	 } 

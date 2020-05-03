@@ -70,7 +70,7 @@ public class Hospital {
 
 				  // Add into the html table    
 				  //output += "<tr><td>" + hosReadbean.getHospital_ID() + "</td>";
-				  output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + Hospital_Name + "</td>"; 
+				  output += "<tr><td><input id='hidHospitalIDUpdate' name='hidHospitalIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + Hospital_Name + "</td>"; 
 				  //output += "<td>" + hosReadbean.getHospital_Name() + "</td>";
 				  output += "<td>" + Hospital_Address + "</td>";    
 				  output += "<td>" + Hospital_City + "</td>"; 
