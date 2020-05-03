@@ -1,4 +1,5 @@
 <%@page import="model.Hospital"%>
+<%@page import="com.Hospital_Service"%>
 <%@page import="bean.HospitalBean"%>
 <%@page import="com.hospitalsAPI"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -55,11 +56,7 @@
   		         name="hidHospitalIDSave" value="">  
   	</form> 
  
- 	<div id="alertSuccess" class="alert alert-success">
- 		<% 
- 			out.print(session.getAttribute("statusMsg"));
- 		%>
- 	</div>  
+ 	<div id="alertSuccess" class="alert alert-success"></div>  
  	<div id="alertError" class="alert alert-danger"></div> 
 
  	<br> 

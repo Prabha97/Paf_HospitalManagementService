@@ -94,7 +94,7 @@ public class hospitalsAPI extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map param = getParasMap(request);
 		
-		String result = hospObj.deleteHospitals(param.get("hidHospitalIDDelete").toString());
+		String result = hospObj.deleteHospitals(param.get("hID").toString());
 		
 		response.getWriter().write(result);
 	}

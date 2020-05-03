@@ -91,7 +91,7 @@ $(document).on("click", ".btnRemove", function(event){
 		dataType : "text",
 		complete : function(response, status)
 		{
-			onHospitalDeletedComplete(response, responseText, status);
+			onHospitalDeletedComplete(response.responseText, status);
 		}
 	});
 });
