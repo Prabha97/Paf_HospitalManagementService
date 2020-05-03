@@ -85,7 +85,7 @@ $(document).on("click", ".btnUpdate", function(event)
 $(document).on("click", ".btnRemove", function(event){
 	$.ajax(
 	{
-		url : "",
+		url : "hospitalsAPI",
 		type : "DELETE",
 		data : "hID" + $(this).data("hID"),
 		dataType : "text",
