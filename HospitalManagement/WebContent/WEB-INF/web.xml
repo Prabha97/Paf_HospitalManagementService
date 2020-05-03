@@ -22,12 +22,12 @@
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>		
 		<url-pattern>/HospitalManagement/*</url-pattern>
-	</servlet-mapping> 
+	</servlet-mapping>
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>Hospital.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>

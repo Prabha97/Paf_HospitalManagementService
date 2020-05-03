@@ -1,7 +1,6 @@
 <%@page import="model.Hospital"%>
 <%@page import="com.Hospital_Service"%>
-<%@page import="bean.HospitalBean"%>
-<%@page import="com.hospitalsAPI"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -18,7 +17,7 @@
 <div class="container"> 
 <div class="row"> 
 <div class="col-6">  
-	<h1>Hospital Management</h1> 
+	<h3 align="center">Hospitals Registration Page</h3>
  
  	<form id="formHospital" name="formHospital" action="Hospital.jsp">   
  		Hospital Name:   

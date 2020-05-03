@@ -87,7 +87,7 @@ $(document).on("click", ".btnRemove", function(event){
 	{
 		url : "hospitalsAPI",
 		type : "DELETE",
-		data : "hID" + $(this).data("hID"),
+		data : "HospitalID" + $(this).data("Hospital_ID"),
 		dataType : "text",
 		complete : function(response, status)
 		{

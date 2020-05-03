@@ -181,7 +181,7 @@ public class Hospital {
 	  return output;  
 	  }
 	
-	public String deleteHospitals(String hID) {  
+	public String deleteHospitals(String HospitalID) {  
 		String output = ""; 
 	 
 	 try  {   
@@ -197,7 +197,7 @@ public class Hospital {
 	  PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	  // binding values   
-	  preparedStmt.setInt(1, Integer.parseInt(hID));       
+	  preparedStmt.setInt(1, Integer.parseInt(HospitalID));       
 	  // execute the statement   
 	  preparedStmt.execute();   
 	  con.close(); 

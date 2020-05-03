@@ -3,7 +3,13 @@ package com;
 import java.io.IOException;
 import java.util.HashMap; 
 import java.util.Map; 
-import java.util.Scanner; 
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +21,8 @@ import model.Hospital;
 /**
  * Servlet implementation class hospitalsAPI
  */
-@WebServlet("/hospitalsAPI")
+//@WebServlet("/hospitalsAPI")
+@WebServlet(name="hospitalsAPI", urlPatterns={"/hospitalsAPI"})
 public class hospitalsAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,12 +41,15 @@ public class hospitalsAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("Inside doGet method");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Inside doPost method");
+		
 		String result = hospObj.insertHospitals(request.getParameter("hospitalName"), request.getParameter("hospitalAddress"), 
 				request.getParameter("hospitalCity"), request.getParameter("phoneNum"), 
 				request.getParameter("hospitalEmail"), request.getParameter("hospitalDesc"), 
@@ -51,7 +61,7 @@ public class hospitalsAPI extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
-	private Map getParasMap(HttpServletRequest request) {
+	private Map<String, String> getParasMap(HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();  
 		try  {   
 			Scanner scanner = new Scanner(request.getInputStream(), "UTF-8");   
@@ -74,7 +84,7 @@ public class hospitalsAPI extends HttpServlet {
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//use Map object
-		Map param = getParasMap(request);
+		Map<String, String> param = getParasMap(request);
 		
 		String result = hospObj.updateHospitals(param.get("hidHospitalIDSave").toString(),
 				param.get("hospitalName").toString(),
@@ -92,9 +102,10 @@ public class hospitalsAPI extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map param = getParasMap(request);
+		// TODO Auto-generated method stub
+		Map<String, String> param = getParasMap(request);
 		
-		String result = hospObj.deleteHospitals(param.get("hID").toString());
+		String result = hospObj.deleteHospitals(param.get("hidHospitalIDSave").toString());
 		
 		response.getWriter().write(result);
 	}
