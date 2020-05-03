@@ -38,7 +38,7 @@ public class Hospital {
 			} 
 
 			// Prepare the html table to be displayed   
-			output = "<table border=\"1\"><tr><th>Hospital Name</th>"
+			output = "<table border='1'><tr><th>Hospital Name</th>"
 					+ "<th>Hospital Address</th><th>Hospital City</th>"
 					+ "<th>Hospital Phone</th><th>Hospital Email</th>"
 					+ "<th>Hospital Description</th><th>Open Hours</th>"
@@ -70,9 +70,7 @@ public class Hospital {
 
 				  // Add into the html table    
 				  //output += "<tr><td>" + hosReadbean.getHospital_ID() + "</td>";
-				  output += "<tr><td><input id=\"hidHospitalIDUpdate\" name=\"hidHospitalIDUpdate\"     "
-				  		+ "type=\"hidden\" value=\"" + Hospital_ID + "\">"     
-						  	+ Hospital_Name + "</td>"; 
+				  output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + Hospital_Name + "</td>"; 
 				  //output += "<td>" + hosReadbean.getHospital_Name() + "</td>";
 				  output += "<td>" + Hospital_Address + "</td>";    
 				  output += "<td>" + Hospital_City + "</td>"; 
@@ -81,12 +79,10 @@ public class Hospital {
 				  output += "<td>" + Hospital_Description + "</td>";		  
 				  output += "<td>" + Open_Hours + "</td>"; 
 				  
-				  
-
 				// buttons     
-				  output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"       
-						  + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-hospitalid ='"       
-						  + Hospital_ID + "'>" + "</td></tr>";  
+				  output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+				  		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-hospitalid='"+ Hospital_ID +"'>"+"</td></tr>";
+
 				} 
 			  
 			  con.close(); 
