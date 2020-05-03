@@ -29,8 +29,6 @@ public class Hospital {
 	public String readHospitals() {  
 		String output = "";  
 		
-		//HospitalBean hosReadbean = new HospitalBean();
-
 		try {  
 			Connection con = connect();  
 			if (con == null)  {   
@@ -51,14 +49,7 @@ public class Hospital {
 
 			  // iterate through the rows in the result set   
 			  while (rs.next())   {  
-//				  hosReadbean.setHospital_ID(rs.getInt("Hospital_ID"));
-//				  hosReadbean.setHospital_Name(rs.getString("Hospital_Name"));
-//				  hosReadbean.setHospital_Address(rs.getString("Hospital_Address"));
-//				  hosReadbean.setHospital_City(rs.getString("Hospital_City"));
-//				  hosReadbean.setHospital_Phone(rs.getString("Hospital_Phone"));
-//				  hosReadbean.setHospital_Email(rs.getString("Hospital_Email"));
-//				  hosReadbean.setHospital_Description(rs.getString("Hospital_Description"));
-//				  hosReadbean.setOpen_Hours(rs.getInt("Open_Hours"));
+
 				  String Hospital_ID = Integer.toString(rs.getInt("Hospital_ID"));
 				  String Hospital_Name = rs.getString("Hospital_Name");
 				  String Hospital_Address = rs.getString("Hospital_Address");
@@ -69,9 +60,9 @@ public class Hospital {
 				  String Open_Hours = Integer.toString(rs.getInt("Open_Hours"));
 
 				  // Add into the html table    
-				  //output += "<tr><td>" + hosReadbean.getHospital_ID() + "</td>";
+
 				  output += "<tr><td><input id='hidHospitalIDUpdate' name='hidHospitalIDUpdate' type='hidden' value='" + Hospital_ID + "'>" + Hospital_Name + "</td>"; 
-				  //output += "<td>" + hosReadbean.getHospital_Name() + "</td>";
+
 				  output += "<td>" + Hospital_Address + "</td>";    
 				  output += "<td>" + Hospital_City + "</td>"; 
 				  output += "<td>" + Hospital_Phone + "</td>";    

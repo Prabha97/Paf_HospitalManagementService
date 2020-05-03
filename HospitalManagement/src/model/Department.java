@@ -46,7 +46,7 @@ public class Department {
 			} 
 
 			// Prepare the html table to be displayed   
-						output = "<table border='1'><tr><th>Department Name</th><th>Hospital Name</th>"
+			output = "<table border='1'><tr><th>Department Name</th><th>Hospital Name</th>"
 								+ "<th>Head of Department</th><th>Number of Staff Vaconcies</th>"
 								+ "<th>Update</th><th>Remove</th></tr>";
 
@@ -56,11 +56,7 @@ public class Department {
 		  
 		  // iterate through the rows in the result set  
 		  while (rs1.next())   {
-//			  depReadbean.setDepartment_ID(rs1.getInt("Department_ID"));
-//			  depReadbean.setDepartment_Name(rs1.getString("Department_Name"));
-//			  hospReadbean.setHospital_Name(rs1.getString("Hospital_Name"));
-//			  String DoctorName = rs1.getString("DoctorName");
-//			  depReadbean.setStaff_Vacancies(rs1.getInt("Staff_Vacancies"));
+
 			  String Department_ID = Integer.toString(rs1.getInt("Department_ID"));
 			  String Department_Name = rs1.getString("Department_Name");
 			  String Hospital_Name = rs1.getString("Hospital_Name");
@@ -68,12 +64,8 @@ public class Department {
 			  String Staff_Vacancies = rs1.getString("Staff_Vacancies");
 
 		   // Add into the html table    
-		  //output += "<tr><td>" + depReadbean.getDepartment_ID() + "</td>"; 
+
 		  output += "<tr><td><input id='hidDepartmentIDUpdate' name='hidDepartmentIDUpdate' type='hidden' value='" + Department_ID + "'>" + Department_Name + "</td>";
-//		  output += "<td>" + depReadbean.getDepartment_Name() + "</td>";
-//		  output += "<td>" + hospReadbean.getHospital_Name() + "</td>";
-//		  output += "<td>" + DoctorName + "</td>";
-//		  output += "<td>" + depReadbean.getStaff_Vacancies() + "</td>";
 		  output += "<td>" + Hospital_Name + "</td>";    
 		  output += "<td>" + HeadName + "</td>"; 
 		  output += "<td>" + Staff_Vacancies + "</td>"; 
@@ -203,9 +195,6 @@ public class Department {
 	  PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	  // binding values   
-//	  preparedStmt.setInt(1, depDeleteBean.getDepartment_ID());
-//	  preparedStmt.setInt(2, depDeleteBean.getHospital_ID());
-//	  preparedStmt.setInt(1, Integer.parseInt(Hospital_ID));
 	  preparedStmt.setInt(1, Integer.parseInt(Department_ID));
 	  // execute the statement   
 	  preparedStmt.execute();   
