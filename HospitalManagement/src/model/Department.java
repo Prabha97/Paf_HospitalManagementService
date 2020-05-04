@@ -106,10 +106,7 @@ public class Department {
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 
 			// binding values 
-//			preparedStmt.setInt(1, depBean.getHospital_ID());
-//			preparedStmt.setString(2, depBean.getDepartment_Name());    
-//			preparedStmt.setInt(3, depBean.getHead());
-//			preparedStmt.setInt(4, depBean.getStaff_Vacancies());
+
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setInt(2, Integer.parseInt(hospId));
 			preparedStmt.setString(3, depName);
@@ -150,11 +147,7 @@ public class Department {
 	   PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	   // binding values    
-//	   preparedStmt.setInt(1, depUpdateBean.getHospital_ID());
-//	   preparedStmt.setString(2, depUpdateBean.getDepartment_Name());    
-//	   preparedStmt.setInt(3, depUpdateBean.getHead());
-//	   preparedStmt.setInt(4, depUpdateBean.getStaff_Vacancies());
-//	   preparedStmt.setInt(5, depUpdateBean.getDepartment_ID());
+
 	   preparedStmt.setInt(1, Integer.parseInt(hospid));    
 	   preparedStmt.setString(2, depname);    
 	   preparedStmt.setInt(3, Integer.parseInt(head));
