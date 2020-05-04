@@ -81,12 +81,12 @@ public class hospitalsAPI extends HttpServlet {
 		Map<String, String> param = getParasMap(request);
 		
 		String result = hospObj.updateHospitals(param.get("hidHospitalIDSave").toString(),
-				param.get("hospitalName").toString(),
-				param.get("hospitalAddress").toString(),
-				param.get("hospitalCity").toString(), 
+				param.get("hospitalName").toString().replace('+', ' '),
+				param.get("hospitalAddress").toString().replace('+', ' '),
+				param.get("hospitalCity").toString().replace('+', ' '), 
 				param.get("phoneNum").toString(),
-				param.get("hospitalEmail").toString(),
-				param.get("hospitalDesc").toString(),
+				param.get("hospitalEmail").toString().replace("%40", "@"),
+				param.get("hospitalDesc").toString().replace('+', ' '),
 				param.get("openHours").toString());
 		
 		response.getWriter().write(result);
